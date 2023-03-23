@@ -7,20 +7,16 @@ import { ProductsComponent } from './components/products/products.component';
 const routes: Routes = [
   {
     path: '',
-    component: ProductsComponent
+    component: ProductsComponent,
   },
   {
     path: ':id',
-    component: ProductDetailComponent
-  }
+    component: ProductDetailComponent,
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class ProductRoutingModule {}
