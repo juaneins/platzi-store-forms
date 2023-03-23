@@ -32,3 +32,23 @@
   Number: {{ numberField.value }}
   <input type="number" [formControl]="numberField" />
 </p>
+
+<p>
+  Category: {{ categoryField.value }}
+  <select [formControl]="categoryField">
+    <option value="cat1">category 1</option>
+    <option value="cat2">category 2</option>
+    <option value="cat3">category 3</option>
+    <option value="cat4">category 4</option>
+  </select>
+</p>
+
+<p>
+  Tags: {{ tagField.value }}
+  <select [formControl]="tagField" multiple>
+    <option value="tag1">tag 1</option>
+    <option value="tag2">tag 2</option>
+    <option value="tag3">tag 3</option>
+    <option value="tag4">tag 4</option>
+  </select>
+</p>
