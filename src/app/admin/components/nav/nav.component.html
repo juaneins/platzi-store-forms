@@ -12,10 +12,18 @@
       <a mat-list-item routerLink="/admin">
         <mat-icon>bubble_chart</mat-icon> Dashboard</a
       >
-      <a mat-list-item routerLink="/admin/products"><mat-icon>store</mat-icon> Productos</a>
+      <a mat-list-item routerLink="/admin/products"
+        ><mat-icon>store</mat-icon> Productos</a
+      >
       <a mat-list-item routerLink="/admin/categories">
-        <mat-icon>category</mat-icon> Categoría</a>
-      <button mat-list-item (click)="logout()"> <mat-icon>login</mat-icon> Cerrar</button>
+        <mat-icon>category</mat-icon> Categoría</a
+      >
+      <a mat-list-item routerLink="/admin/basic"
+        ><mat-icon>assignment</mat-icon>Basic Form</a
+      >
+      <button mat-list-item (click)="logout()">
+        <mat-icon>login</mat-icon> Cerrar
+      </button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -29,7 +37,7 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>platzi-store</span>
+      <span>garage-store</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
