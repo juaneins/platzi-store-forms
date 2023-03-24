@@ -1,4 +1,127 @@
-<p>
+<form [formGroup]="groupedForm" (ngSubmit)="save($event)">
+  <p>
+    Name {{ nameField.value }} {{ nameField.valid }}
+    <input
+      type="text"
+      [class.is-valid]="isNameFieldValid"
+      [class.is-invalid]="isNameFieldInvalid"
+      formControlName="name"
+    />
+    <button [disabled]="nameField.invalid" (click)="getNameValue()">
+      Get Value
+    </button>
+    <!-- <code>
+      <pre>
+        {{ nameField | json }}
+      </pre>
+    </code> -->
+  </p>
+  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+    <strong *ngIf="nameField.touched && nameField.hasError('required')"
+      >this field is required</strong
+    >
+  </p>
+  <p>
+    <strong *ngIf="nameField.touched && nameField.hasError('maxlength')"
+      >You've passed the max length of this field</strong
+    >
+  </p>
+  <p>
+    Email: {{ emailField.value }}
+    <input type="email" formControlName="email" />
+  </p>
+
+  <p>
+    Phone: {{ phoneField.value }}
+    <input type="tel" formControlName="phone" />
+  </p>
+
+  <p>
+    Color: {{ colorField.value }}
+    <input type="color" formControlName="color" />
+  </p>
+
+  <p>
+    Date: {{ dateField.value }}
+    <input type="date" formControlName="date" />
+  </p>
+
+  <p>
+    Number: {{ numberField.value }}
+    <input type="number" formControlName="number" />
+  </p>
+
+  <p>
+    Category: {{ categoryField.value }}
+    <select formControlName="category">
+      <option value="cat1">category 1</option>
+      <option value="cat2">category 2</option>
+      <option value="cat3">category 3</option>
+      <option value="cat4">category 4</option>
+    </select>
+  </p>
+
+  <p>
+    Tags: {{ tagField.value }}
+    <select formControlName="tag" multiple>
+      <option value="tag1">tag 1</option>
+      <option value="tag2">tag 2</option>
+      <option value="tag3">tag 3</option>
+      <option value="tag4">tag 4</option>
+    </select>
+  </p>
+
+  <p>
+    Agree?: {{ agreeField.value }}
+    <input type="checkbox" formControlName="agree" />
+  </p>
+
+  <p>
+    Gender: {{ genderField.value }}
+    <label for="">
+      <input name="gender" type="radio" value="male" formControlName="gender" />
+      Male
+    </label>
+    <label for="">
+      <input
+        name="gender"
+        type="radio"
+        value="female"
+        formControlName="gender"
+      />
+      Female
+    </label>
+    <label for="">
+      <input
+        name="gender"
+        type="radio"
+        value="other"
+        formControlName="gender"
+      />
+      Other
+    </label>
+  </p>
+  <p>
+    Zone: {{ zoneField.value }}
+    <label for="">
+      <input name="zone" type="radio" value="zone-1" formControlName="zone" />
+      Zone 1
+    </label>
+    <label for="">
+      <input name="zone" type="radio" value="zone-2" formControlName="zone" />
+      Zone 2
+    </label>
+    <label for="">
+      <input name="zone" type="radio" value="zone-3" formControlName="zone" />
+      Zone 3
+    </label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
+
+<!-- <p>
   Name {{ nameField.value }} {{ nameField.valid }}
   <input
     type="text"
@@ -9,11 +132,11 @@
   <button [disabled]="nameField.invalid" (click)="getNameValue()">
     Get Value
   </button>
-  <!-- <code>
+  <code>
     <pre>
       {{ nameField | json }}
     </pre>
-  </code> -->
+  </code>
 </p>
 <p class="messages" [class.active]="nameField.touched && nameField.invalid">
   <strong *ngIf="nameField.touched && nameField.hasError('required')"
@@ -119,4 +242,4 @@
     <input name="zone" type="radio" value="zone-3" [formControl]="zoneField" />
     Zone 3
   </label>
-</p>
+</p> -->
