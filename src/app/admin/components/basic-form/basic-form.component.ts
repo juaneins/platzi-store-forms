@@ -46,14 +46,24 @@ export class BasicFormComponent implements OnInit {
 
   private buildForm() {
     this.groupedForm = this.formBuilder.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.pattern(/^([Aa-zA-Z áéíóúÁÉÍÓÚÑñ]{2,}s?){2,4}$/),
+      fullName: this.formBuilder.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^([Aa-zA-Z áéíóúÁÉÍÓÚÑñ]{2,}s?){2,4}$/),
+          ],
         ],
-      ],
+        last: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^([Aa-zA-Z áéíóúÁÉÍÓÚÑñ]{2,}s?){2,4}$/),
+          ],
+        ],
+      }),
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       color: ['#31a061'],
@@ -75,7 +85,28 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField() {
-    return this.groupedForm.get('name');
+    // return this.groupedForm.get('fullName.name');
+    return this.groupedForm.get('fullName').get('name');
+  }
+
+  get lastField() {
+    return this.groupedForm.get('fullName').get('last');
+  }
+
+  get isNameFieldValid() {
+    return this.nameField.touched && this.nameField.valid;
+  }
+
+  get isNameFieldInvalid() {
+    return this.nameField.touched && this.nameField.invalid;
+  }
+
+  get isLastFieldValid() {
+    return this.lastField.touched && this.lastField.valid;
+  }
+
+  get isLastFieldInvalid() {
+    return this.lastField.touched && this.lastField.invalid;
   }
 
   get emailField() {
@@ -115,14 +146,6 @@ export class BasicFormComponent implements OnInit {
   }
   get zoneField() {
     return this.groupedForm.get('zone');
-  }
-
-  get isNameFieldValid() {
-    return this.nameField.touched && this.nameField.valid;
-  }
-
-  get isNameFieldInvalid() {
-    return this.nameField.touched && this.nameField.invalid;
   }
 
   save(event) {

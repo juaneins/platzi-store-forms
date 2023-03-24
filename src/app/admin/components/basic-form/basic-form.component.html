@@ -1,36 +1,64 @@
 <form [formGroup]="groupedForm" (ngSubmit)="save($event)">
-  <p>
-    Name {{ nameField.value }} {{ nameField.valid }}
-    <input
-      type="text"
-      [class.is-valid]="isNameFieldValid"
-      [class.is-invalid]="isNameFieldInvalid"
-      formControlName="name"
-    />
-    <button [disabled]="nameField.invalid" (click)="getNameValue()">
-      Get Value
-    </button>
-    <!-- <code>
-      <pre>
-        {{ nameField | json }}
-      </pre>
-    </code> -->
-  </p>
-  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-    <strong *ngIf="nameField.touched && nameField.hasError('required')"
-      >this field is required</strong
-    >
-  </p>
-  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-    <strong *ngIf="nameField.hasError('maxlength')"
-      >You've passed the max length of this field</strong
-    >
-  </p>
-  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-    <strong *ngIf="nameField.hasError('pattern')"
-      >please not enter special characters</strong
-    >
-  </p>
+  <div formGroupName="fullName">
+    <p>
+      Name {{ nameField.value }} {{ nameField.valid }}
+      <input
+        type="text"
+        [class.is-valid]="isNameFieldValid"
+        [class.is-invalid]="isNameFieldInvalid"
+        formControlName="name"
+      />
+      <button [disabled]="nameField.invalid" (click)="getNameValue()">
+        Get Value
+      </button>
+      <!-- <code>
+        <pre>
+          {{ nameField | json }}
+        </pre>
+      </code> -->
+    </p>
+    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+      <strong *ngIf="nameField.touched && nameField.hasError('required')"
+        >this field is required</strong
+      >
+    </p>
+    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+      <strong *ngIf="nameField.hasError('maxlength')"
+        >You've passed the max length of this field</strong
+      >
+    </p>
+    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+      <strong *ngIf="nameField.hasError('pattern')"
+        >please not enter special characters</strong
+      >
+    </p>
+
+    <p>
+      LastName {{ lastField.value }} {{ lastField.valid }}
+      <input
+        type="text"
+        [class.is-valid]="isLastFieldValid"
+        [class.is-invalid]="isLastFieldInvalid"
+        formControlName="last"
+      />
+    </p>
+    <p class="messages" [class.active]="lastField.touched && lastField.invalid">
+      <strong *ngIf="lastField.touched && lastField.hasError('required')"
+        >this field is required</strong
+      >
+    </p>
+    <p class="messages" [class.active]="lastField.touched && lastField.invalid">
+      <strong *ngIf="lastField.hasError('maxlength')"
+        >You've passed the max length of this field</strong
+      >
+    </p>
+    <p class="messages" [class.active]="lastField.touched && lastField.invalid">
+      <strong *ngIf="lastField.hasError('pattern')"
+        >please not enter special characters</strong
+      >
+    </p>
+  </div>
+
   <p>
     Email: {{ emailField.value }}
     <input type="email" formControlName="email" />
