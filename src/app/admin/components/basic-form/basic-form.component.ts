@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -7,19 +12,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./basic-form.component.scss'],
 })
 export class BasicFormComponent implements OnInit {
-  groupedForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    color: new FormControl('#31a061'),
-    number: new FormControl(''),
-    date: new FormControl(''),
-    category: new FormControl(''),
-    tag: new FormControl(''),
-    agree: new FormControl(false),
-    gender: new FormControl(''),
-    zone: new FormControl(''),
-  });
+  groupedForm: FormGroup;
 
   // nameField = new FormControl('', [
   //   Validators.required,
@@ -38,11 +31,32 @@ export class BasicFormComponent implements OnInit {
   // genderField = new FormControl('');
   // zoneField = new FormControl('');
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {
+    this.buildForm();
+  }
 
   ngOnInit(): void {
     this.nameField.valueChanges.subscribe((value) => {
       console.log('reactive value:' + value);
+    });
+    this.groupedForm.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
+  }
+
+  private buildForm() {
+    this.groupedForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10)]],
+      email: [''],
+      phone: ['', [Validators.required]],
+      color: ['#31a061'],
+      number: [''],
+      date: [''],
+      category: [''],
+      tag: [''],
+      agree: [false],
+      gender: [''],
+      zone: [''],
     });
   }
 
@@ -103,7 +117,10 @@ export class BasicFormComponent implements OnInit {
 
   save(event) {
     console.log('event: ', event);
-
-    console.log(this.groupedForm.value);
+    if (this.groupedForm.valid) {
+      console.log(this.groupedForm.value);
+    } else {
+      this.groupedForm.markAllAsTouched();
+    }
   }
 }
