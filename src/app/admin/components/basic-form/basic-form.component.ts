@@ -36,25 +36,35 @@ export class BasicFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameField.valueChanges.subscribe((value) => {
-      console.log('reactive value:' + value);
-    });
-    this.groupedForm.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
+    // this.nameField.valueChanges.subscribe((value) => {
+    //   console.log('reactive value:' + value);
+    // });
+    // this.groupedForm.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
   }
 
   private buildForm() {
     this.groupedForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10)]],
-      email: [''],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern(/^([Aa-zA-Z áéíóúÁÉÍÓÚÑñ]{2,}s?){2,4}$/),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       color: ['#31a061'],
-      number: [''],
+      number: [
+        '',
+        [Validators.required, Validators.min(18), Validators.max(65)],
+      ],
       date: [''],
       category: [''],
       tag: [''],
-      agree: [false],
+      agree: [false, [Validators.requiredTrue]],
       gender: [''],
       zone: [''],
     });

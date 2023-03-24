@@ -21,14 +21,25 @@
       >this field is required</strong
     >
   </p>
-  <p>
-    <strong *ngIf="nameField.touched && nameField.hasError('maxlength')"
+  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+    <strong *ngIf="nameField.hasError('maxlength')"
       >You've passed the max length of this field</strong
+    >
+  </p>
+  <p class="messages" [class.active]="nameField.touched && nameField.invalid">
+    <strong *ngIf="nameField.hasError('pattern')"
+      >please not enter special characters</strong
     >
   </p>
   <p>
     Email: {{ emailField.value }}
     <input type="email" formControlName="email" />
+  </p>
+  <p class="messages" [class.active]="emailField.touched && emailField.invalid">
+    <strong *ngIf="emailField.hasError('required')">email is required</strong>
+  </p>
+  <p class="messages" [class.active]="emailField.touched && emailField.invalid">
+    <strong *ngIf="emailField.hasError('email')">email is not valid</strong>
   </p>
 
   <p>
@@ -37,7 +48,7 @@
   </p>
   <p class="messages" [class.active]="phoneField.touched && phoneField.invalid">
     <strong *ngIf="phoneField.touched && phoneField.hasError('required')"
-      >this field is required</strong
+      >Phone is required</strong
     >
   </p>
 
@@ -54,6 +65,22 @@
   <p>
     Number: {{ numberField.value }}
     <input type="number" formControlName="number" />
+  </p>
+  <p
+    class="messages"
+    [class.active]="numberField.touched && numberField.invalid"
+  >
+    <strong *ngIf="numberField.hasError('required')"
+      >this field is required</strong
+    >
+  </p>
+  <p
+    class="messages"
+    [class.active]="numberField.touched && numberField.invalid"
+  >
+    <strong *ngIf="numberField.hasError('min') || numberField.hasError('max')"
+      >the value in not between de valid numbers (18 - 65)</strong
+    >
   </p>
 
   <p>
@@ -77,8 +104,13 @@
   </p>
 
   <p>
-    Agree?: {{ agreeField.value }}
+    Agree: {{ agreeField.value }}
     <input type="checkbox" formControlName="agree" />
+  </p>
+  <p class="messages" [class.active]="agreeField.touched && agreeField.invalid">
+    <strong *ngIf="agreeField.hasError('required')"
+      >you must accept the terms and conditions</strong
+    >
   </p>
 
   <p>
