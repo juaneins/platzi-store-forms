@@ -1,12 +1,24 @@
 <p>
-  {{ nameField.value }}
+  Name {{ nameField.value }} {{ nameField.valid }}
   <input type="text" [formControl]="nameField" />
-  <button (click)="getNameValue()">Get Value</button>
+  <button [disabled]="nameField.invalid" (click)="getNameValue()">
+    Get Value
+  </button>
   <!-- <code>
     <pre>
       {{ nameField | json }}
     </pre>
   </code> -->
+</p>
+<p>
+  <strong *ngIf="nameField.touched && nameField.hasError('required')"
+    >this field is required</strong
+  >
+</p>
+<p>
+  <strong *ngIf="nameField.touched && nameField.hasError('maxlength')"
+    >You've passed the max length of this field</strong
+  >
 </p>
 <p>
   Email: {{ emailField.value }}
