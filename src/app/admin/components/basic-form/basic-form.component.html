@@ -1,6 +1,11 @@
 <p>
   Name {{ nameField.value }} {{ nameField.valid }}
-  <input type="text" [formControl]="nameField" />
+  <input
+    type="text"
+    [class.is-valid]="isNameFieldValid"
+    [class.is-invalid]="isNameFieldInvalid"
+    [formControl]="nameField"
+  />
   <button [disabled]="nameField.invalid" (click)="getNameValue()">
     Get Value
   </button>
@@ -10,7 +15,7 @@
     </pre>
   </code> -->
 </p>
-<p>
+<p class="messages" [class.active]="nameField.touched && nameField.invalid">
   <strong *ngIf="nameField.touched && nameField.hasError('required')"
     >this field is required</strong
   >
