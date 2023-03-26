@@ -34,12 +34,23 @@ export class RegisterComponent implements OnInit {
   }
 
   private buildForm() {
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: [
-        '',
-        [Validators.required, Validators.min(6), MyValidators.validatePassword],
-      ],
-    });
+    this.form = this.formBuilder.group(
+      {
+        email: ['', [Validators.required]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.min(6),
+            MyValidators.validatePassword,
+          ],
+        ],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        // el error esta ligado a todo el formulario, no a uno de sus campos
+        validators: MyValidators.matchPassword,
+      }
+    );
   }
 }
