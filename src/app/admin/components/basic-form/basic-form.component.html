@@ -1,37 +1,36 @@
 <form [formGroup]="groupedForm" (ngSubmit)="save($event)">
   <div formGroupName="fullName">
-    <p>
-      Name {{ nameField.value }} {{ nameField.valid }}
+    <mat-form-field appearance="fill">
+      <mat-label> Name {{ nameField.value }}</mat-label>
       <input
+        matInput
         type="text"
-        [class.is-valid]="isNameFieldValid"
-        [class.is-invalid]="isNameFieldInvalid"
         formControlName="name"
+        placeholder="John Snow"
       />
-      <button [disabled]="nameField.invalid" (click)="getNameValue()">
-        Get Value
-      </button>
-      <!-- <code>
-        <pre>
-          {{ nameField | json }}
-        </pre>
-      </code> -->
-    </p>
-    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-      <strong *ngIf="nameField.touched && nameField.hasError('required')"
-        >this field is required</strong
+      <mat-icon matSuffix *ngIf="nameField.touched && nameField.valid"
+        >done</mat-icon
       >
-    </p>
-    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-      <strong *ngIf="nameField.hasError('maxlength')"
-        >You've passed the max length of this field</strong
+      <mat-icon matSuffix *ngIf="nameField.touched && nameField.invalid"
+        >close</mat-icon
       >
-    </p>
-    <p class="messages" [class.active]="nameField.touched && nameField.invalid">
-      <strong *ngIf="nameField.hasError('pattern')"
-        >please not enter special characters</strong
-      >
-    </p>
+    </mat-form-field>
+    <div
+      class="messages"
+      [class.active]="nameField.touched && nameField.invalid"
+    >
+      <mat-error *ngIf="nameField.touched && nameField.hasError('required')">
+        this field is required
+      </mat-error>
+
+      <mat-error *ngIf="nameField.hasError('maxlength')">
+        You've passed the max length of this field
+      </mat-error>
+
+      <mat-error *ngIf="nameField.hasError('pattern')">
+        please not enter special characters
+      </mat-error>
+    </div>
 
     <p>
       LastName {{ lastField.value }} {{ lastField.valid }}
