@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoriesService } from '../../../../core/services/categories.service';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-category-form',
@@ -16,11 +14,13 @@ import { CategoriesService } from '../../../../core/services/categories.service'
 })
 export class CategoryFormComponent implements OnInit {
   form: FormGroup;
+  image$: Observable<string>;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
-    private router: Router
+    private router: Router,
+    private storage: AngularFireStorage
   ) {
     this.buildForm();
   }
@@ -56,5 +56,25 @@ export class CategoryFormComponent implements OnInit {
       console.log(rta);
       this.router.navigate(['./admin/categories']);
     });
+  }
+
+  fileUpload(event) {
+    const image = event.target.files[0];
+    const name = 'category.png';
+    const ref = this.storage.ref(name);
+    const task = this.storage.upload(name, image);
+
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const urlImage$ = ref.getDownloadURL();
+          urlImage$.subscribe((url) => {
+            console.log(url);
+            this.imageField.setValue(url);
+          });
+        })
+      )
+      .subscribe();
   }
 }
