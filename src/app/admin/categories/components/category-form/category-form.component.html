@@ -21,12 +21,19 @@
               <mat-error *ngIf="nameField.hasError('required')">
                 Field required
               </mat-error>
+              <mat-error *ngIf="nameField.hasError('minlength')">
+                Min length is 4 char
+              </mat-error>
+              <mat-error *ngIf="nameField.hasError('not_available')">
+                The category name is not available
+              </mat-error>
             </div>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
+          <!-- <img *ngIf="image$ | async as image" [src]="image" /> -->
           <img *ngIf="imageField.value" [src]="imageField.value" />
           <input
             (change)="fileUpload($event)"
