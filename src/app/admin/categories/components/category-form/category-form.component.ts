@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoriesService } from '../../../../core/services/categories.service';
@@ -16,17 +16,26 @@ import { MyValidators } from 'src/app/utils/validators';
 export class CategoryFormComponent implements OnInit {
   form: FormGroup;
   image$: Observable<string>;
+  categoryId: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private activatedRoute: ActivatedRoute
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.categoryId = params.id;
+      if (this.categoryId) {
+        this.getCategory();
+      }
+    });
+  }
 
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -49,7 +58,11 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      this.createCategory();
+      if (this.categoryId) {
+        this.updateCategory();
+      } else {
+        this.createCategory();
+      }
     } else {
       this.form.markAllAsTouched();
     }
@@ -57,9 +70,23 @@ export class CategoryFormComponent implements OnInit {
 
   private createCategory() {
     const data = this.form.value;
-    this.categoriesService.create(data).subscribe((rta) => {
-      console.log(rta);
+    this.categoriesService.createCategory(data).subscribe((rta) => {
       this.router.navigate(['./admin/categories']);
+    });
+  }
+
+  private updateCategory() {
+    const data = this.form.value;
+    this.categoriesService
+      .updateCategory(this.categoryId, data)
+      .subscribe((rta) => {
+        this.router.navigate(['./admin/categories']);
+      });
+  }
+
+  private getCategory() {
+    this.categoriesService.getCategory(this.categoryId).subscribe((data) => {
+      this.form.patchValue(data);
     });
   }
 

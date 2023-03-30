@@ -52,7 +52,10 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit">Save category</button>
+      <button mat-raised-button type="submit">
+        <span *ngIf="!categoryId">Save category</span>
+        <span *ngIf="categoryId">Update category</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

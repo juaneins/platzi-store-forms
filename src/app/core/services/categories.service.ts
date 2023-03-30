@@ -10,15 +10,19 @@ import { Category } from '../models/category.model';
 export class CategoriesService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  getAllCategories() {
     return this.http.get<Category[]>(`${environment.url_api}/categories/`);
   }
 
-  create(data: Partial<Category>) {
+  getCategory(id: string) {
+    return this.http.get<Category>(`${environment.url_api}/categories/${id}`);
+  }
+
+  createCategory(data: Partial<Category>) {
     return this.http.post<Category>(`${environment.url_api}/categories/`, data);
   }
 
-  update(id: string, data: Partial<Category>) {
+  updateCategory(id: string, data: Partial<Category>) {
     return this.http.put<Category>(
       `${environment.url_api}/categories/${id}`,
       data
