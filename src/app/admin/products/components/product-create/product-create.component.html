@@ -106,6 +106,13 @@
       </div>
       <div class="row">
         <div class="col-xs">
+          <!-- No usamos input ni output, angular directamente cominca los cambios en
+          el control personalizado -->
+          <app-stepper formControlName="stock"></app-stepper>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
           <img *ngIf="image$ | async as image" [src]="image" alt="" />
 
           <input type="file" (change)="uploadFile($event)" />
